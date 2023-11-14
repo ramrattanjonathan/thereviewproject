@@ -10,7 +10,7 @@ const trailer = document.getElementById('trailer');
 const track = document.getElementById("image-track");
 const navTop = document.getElementById('top-nav')
 const navBottom = document.getElementById('bottom-nav')
-const bgImage = document.getElementById('background-image');
+const bgImage = document.querySelector('#background-image')
 const images = [...document.querySelectorAll(".img")];
 const articleImage = document.querySelector('.article-image');
 const blank = document.getElementById('blank')
@@ -48,7 +48,6 @@ const animateTrailer = (e, interacting) => {
 
 window.onmousemove = e => {
     let interacting = false;
-    console.log(index)
 
     if (index > 0) {
         interacting = true;
@@ -172,7 +171,7 @@ function changeStyles() {
             };
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             trailer.style.backgroundColor = `rgb(${colorMapEnd.r}, ${colorMapEnd.g}, ${colorMapEnd.b})`
-            bgImage.style.backgroundImage = 'url(./img/guts.jpg)';
+            bgImage.style.backgroundImage = 'url(/guts.jpg)';
             removeStyles();
         }
         else if (albumNames[index].classList.contains('mag')) {
@@ -190,7 +189,7 @@ function changeStyles() {
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             translateWords();
             trailer.style.backgroundColor = `rgb(185, 79, 191)`
-            bgImage.style.backgroundImage = 'url(./img/magbaydel.jpg)';
+            bgImage.style.backgroundImage = 'url(/magbaydel.jpg)';
             removeStyles();
         }
         else if (albumNames[index].classList.contains('lady')) {
@@ -207,7 +206,7 @@ function changeStyles() {
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             translateWords();
             trailer.style.backgroundColor = `rgb(${colorMapEnd.r}, ${colorMapEnd.g}, ${colorMapEnd.b})`
-            bgImage.style.backgroundImage = 'url(./img/lady.jpg)';
+            bgImage.style.backgroundImage = 'url(/lady.jpg)';
             removeStyles();
         }
         else if (albumNames[index].classList.contains('melodrama')) {
@@ -224,7 +223,7 @@ function changeStyles() {
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             translateWords();
             trailer.style.backgroundColor = `rgb(${colorMapEnd.r}, ${colorMapEnd.g}, ${colorMapEnd.b})`
-            bgImage.style.backgroundImage = 'url(./img/melodrama.jpeg)'
+            bgImage.style.backgroundImage = 'url(/melodrama.jpeg)'
             removeStyles();
         }
         else if (albumNames[index].classList.contains('bewitched')) {
@@ -241,7 +240,7 @@ function changeStyles() {
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             translateWords();
             trailer.style.backgroundColor = `rgb(${colorMapEnd.r}, ${colorMapEnd.g}, ${colorMapEnd.b})`
-            bgImage.style.backgroundImage = 'url(./img/laufey.jpg)';
+            bgImage.style.backgroundImage = 'url(/laufey.jpg)';
             removeStyles();
         }
         else if (albumNames[index].classList.contains('loveliest')) {
@@ -258,7 +257,7 @@ function changeStyles() {
             changeNav(percentOfScroll, colorMapStart, colorMapEnd);
             translateWords();
             trailer.style.backgroundColor = `rgb(${colorMapEnd.r}, ${colorMapEnd.g}, ${colorMapEnd.b})`
-            bgImage.style.backgroundImage = 'url(./img/loveliest.webp)';
+            bgImage.style.backgroundImage = 'url(/loveliest.webp)';
             removeStyles();
         }
 }   }
@@ -478,7 +477,7 @@ function translateBand() {
 
 for (let i = 0; i < bands.length - 1; i++) {
     bands[i].addEventListener('click', () => {
-        lenis.scrollTo(tracks[i])
+        lenis.scrollTo(tracks[i]);
     })
     
     bands[i].addEventListener('mouseover', () => {
