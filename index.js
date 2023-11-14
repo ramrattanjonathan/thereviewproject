@@ -3,6 +3,7 @@ import Lenis from '@studio-freight/lenis';
 let artistNames = document.getElementsByClassName('word');
 let albumNames = document.getElementsByClassName('word-album');
 let index = 0;
+let trackIndex = 0;
 let distances = [];
 let tracksArray = [];
 let tracksArrayLeftDist = [];
@@ -19,6 +20,7 @@ const bands = [...document.querySelectorAll('.band')];
 const trackOne = document.querySelector('.trackone')
 const tracks = [...document.querySelectorAll('article')]
 const fixedContent = document.querySelector('.fixed-container-content')
+const backButton = document.querySelector('.back');
 const middle = {
     x: innerWidth / 2,
     y: innerHeight / 2
@@ -49,7 +51,7 @@ const animateTrailer = (e, interacting) => {
 window.onmousemove = e => {
     let interacting = false;
 
-    if (index > 0) {
+    if (index > 0 || trackIndex > 0) {
         interacting = true;
     }
     else {
@@ -339,12 +341,14 @@ track.addEventListener('click', () => {
         titles[i] = titles[i].classList.add('active');
     }
 
+    backButton.classList.add('active');
     articleImage.classList.add('active');
     images[currIndex].classList.add('active');
     overlay.classList.add('active');
     track.classList.add('out');
     article.classList.add('active');
     trackOne.classList.add('active');
+    fixedContent.scrollTo(0, 0);
 
     lenis = new Lenis({
         content: fixedContent,
@@ -481,13 +485,69 @@ for (let i = 0; i < bands.length - 1; i++) {
     })
     
     bands[i].addEventListener('mouseover', () => {
-        index = i;
+        trackIndex= i;
     })
 
     bands[i].addEventListener('mouseleave', () => {
-        index = 0;
+        trackIndex = 0;
     })
 }
+
+backButton.addEventListener('mouseover', () => {
+    trackIndex = 1;
+})
+
+backButton.addEventListener('mouseleave', () => {
+    trackIndex = 0;
+})
+
+function removeImagesOut() {
+    for(let i = 0; i < images.length; i++) {
+        images[i].classList.remove('out');
+        track.classList.remove('out');
+    }
+}
+
+backButton.addEventListener('click', () => {
+    const credits = [...document.querySelectorAll('.credits')];
+    const titles = [...document.querySelectorAll('.title')];
+    const article = document.querySelector('.section');
+
+    lenis.destroy()
+
+    for (let i = 0; i < bands.length; i++) {
+        bands[i].classList.remove('inview1')
+        bands[i].classList.remove('inview2')
+        bands[i].classList.remove('inview3')
+        bands[i].classList.remove('inview4')
+        bands[i].classList.remove('is-sticky');
+        bands[i].classList.remove('is-sticky-left');
+        bands[i].classList.remove('is-sticky-right');
+        bands[i].classList.remove('animating');
+        bands[i].removeAttribute('style')
+    }
+
+    for (let i = 0; i < credits.length; i++) {
+        credits[i] = credits[i].classList.remove('active')
+        titles[i] = titles[i].classList.remove('active');
+    }
+
+    overlay.classList.remove('active');
+    backButton.classList.remove('active');
+    articleImage.classList.remove('active')
+    article.classList.remove('active');
+    trackOne.classList.remove('active');
+
+    setTimeout(removeImagesOut, 1200);
+
+    lenis = new Lenis({
+        lerp: 0.1,
+        smooth: true,
+        orientation: 'horizontal'
+    })
+
+
+})
 
     
 
