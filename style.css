@@ -45,7 +45,7 @@ body {
   position: fixed;
   left: 0px;
   top: 0px;
-  z-index: 99999;
+  z-index: 999;
   pointer-events: none;
   opacity: 0;
   transition: 0.8s ease;
@@ -242,7 +242,7 @@ body:hover > #trailer {
   left: 80px
 }
 
-.content>.trackone {
+.content>#trackone {
   width: 3200px;
 }
 
@@ -282,11 +282,11 @@ body:hover > #trailer {
   width: 3200px;
 }
 
-.trackone {
+#trackone {
   transform: translate(100%, 0%);
 }
 
-.trackone.active {
+#trackone.active {
   transform: translate(0, 0);
   transition: transform 400ms ease 950ms;
 }
@@ -300,7 +300,7 @@ body:hover > #trailer {
   width: 100%;
 }
 
-.trackone .content-wrap {
+#trackone .content-wrap {
   left: 25%;
   width: 75%;
 }
@@ -339,7 +339,7 @@ body:hover > #trailer {
   transform: scaleY(2);
 }
 
-.trackone .content-wrap .track-title {
+#trackone .content-wrap .track-title {
   width: 50%;
   bottom: 18vh;
   left: 7vw;
@@ -350,7 +350,7 @@ body:hover > #trailer {
   font-family: Melodrama-Thin;
 }
 
-.trackone .content-wrap .track-title.clone {
+#trackone .content-wrap .track-title.clone {
   left: 60vw;
   bottom: 26vh;
 }
@@ -364,7 +364,7 @@ body:hover > #trailer {
   font-size: 24px;
 }
 
-.trackone .article-wrap {
+#trackone .article-wrap {
   left: 26vw;
   top: 5vh;
 }
@@ -424,7 +424,7 @@ body:hover > #trailer {
   left: 22%;
 }
 
-.trackone .large-image-wrap {
+#trackone .large-image-wrap {
   width: 25%;
 }
 
@@ -438,7 +438,7 @@ body:hover > #trailer {
   object-fit: cover;
 }
 
-.trackone>.small-image-wrap {
+#trackone>.small-image-wrap {
   height: 43%;
   width: 45%;
   position: absolute;
@@ -446,13 +446,13 @@ body:hover > #trailer {
   left: 28vw;
 }
 
-.trackone>.small-image-wrap>img {
+#trackone>.small-image-wrap>img {
   height: 100%;
   width: 50%;
   object-fit: cover;
 }
 
-.trackone>.end-image-wrap {
+#trackone>.end-image-wrap {
   top: 5.5%;
   right: 3.5%;
   width: 17%;
@@ -1500,6 +1500,7 @@ body:hover > #trailer {
   top: 0%;
   z-index: 1;
   transform: translate(0, -100%);
+  cursor: pointer;
 }
 
 .back.active {
@@ -1510,20 +1511,40 @@ body:hover > #trailer {
 .back::before {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 85%;
   height: 2px;
   border-radius: 4px;
   background-color: #fff;
   bottom: 0;
-  left: 0;
+  left: 14.5%;
   transform-origin: right;
   transform: scaleX(0);
   transition: transform .3s ease-in-out;
 }
 
 .back:hover::before {
-  transform-origin: left;
+  transform-origin: right;
   transform: scaleX(1);
+}
+
+#hover-reveal {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.hover-reveal-img {
+  position: absolute;
+  object-fit: cover;
+  object-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  transform: scale(0, 0);
+  transform-origin: center;
+  transition: transform 400ms ease;
+  z-index: 9999;
 }
 
 /*lenis*/

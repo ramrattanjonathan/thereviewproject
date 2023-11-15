@@ -13,11 +13,13 @@ const navTop = document.getElementById('top-nav')
 const navBottom = document.getElementById('bottom-nav')
 const bgImage = document.querySelector('#background-image')
 const images = [...document.querySelectorAll(".img")];
+const hoverImages = document.getElementsByClassName('hover-reveal-img')
+const hoverReveal = document.getElementById('hover-reveal')
 const articleImage = document.querySelector('.article-image');
 const blank = document.getElementById('blank')
 const overlay = document.getElementById('content-overlay')
 const bands = [...document.querySelectorAll('.band')];
-const trackOne = document.querySelector('.trackone')
+const trackOne = document.querySelector('#trackone')
 const tracks = [...document.querySelectorAll('article')]
 const fixedContent = document.querySelector('.fixed-container-content')
 const backButton = document.querySelector('.back');
@@ -38,11 +40,21 @@ changeStyles();
 const animateTrailer = (e, interacting) => {  
     const x = e.clientX - trailer.offsetWidth / 2;
     const y = e.clientY - trailer.offsetHeight / 2;
+
     const keyframes = {
         transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`,
     }
+
+    const otherframes = {
+        transform: `translate(${x - 160}px, ${y - 160}px)`,
+    }
     
     trailer.animate(keyframes, {
+        duration: 800,
+        fill: 'forwards'
+    })
+
+    hoverReveal.animate(otherframes, {
         duration: 800,
         fill: 'forwards'
     })
@@ -479,17 +491,20 @@ function translateBand() {
     }
 }
 
-for (let i = 0; i < bands.length - 1; i++) {
+for (let i = 0; i < bands.length; i++) {
     bands[i].addEventListener('click', () => {
         lenis.scrollTo(tracks[i]);
     })
     
     bands[i].addEventListener('mouseover', () => {
-        trackIndex= i;
+        hoverImages[i].style.transform = `scale(1, 1)`    
+        trailer.style.opacity = `0`    
     })
 
-    bands[i].addEventListener('mouseleave', () => {
+    bands[i].addEventListener('mouseout', () => {
         trackIndex = 0;
+        hoverImages[i].style.transform = `scale(0, 0)`
+        trailer.style.opacity = `0.7`   
     })
 }
 
@@ -537,6 +552,8 @@ backButton.addEventListener('click', () => {
     articleImage.classList.remove('active')
     article.classList.remove('active');
     trackOne.classList.remove('active');
+    index = 0;
+    changeStyles();
 
     setTimeout(removeImagesOut, 1200);
 
@@ -545,8 +562,6 @@ backButton.addEventListener('click', () => {
         smooth: true,
         orientation: 'horizontal'
     })
-
-
 })
 
     
