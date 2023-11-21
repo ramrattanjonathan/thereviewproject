@@ -58,6 +58,7 @@ body {
   z-index: 9999;
   pointer-events: none;
   text-align: center;
+  border-radius: 5px;
 }
 
 .info {
@@ -68,9 +69,10 @@ body {
   transform: scale(0, 0);
   transform-origin: left;
   transition: transform 500ms ease;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   z-index: 9999;
+  background-blend-mode: darken;
 }
 
 body:hover > #trailer {
