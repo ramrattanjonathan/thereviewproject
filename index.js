@@ -9,19 +9,20 @@ let tracksArray = [];
 let tracksArrayLeftDist = [];
 const trailer = document.getElementById('trailer');
 const track = document.getElementById("image-track");
-const navTop = document.getElementById('top-nav')
-const navBottom = document.getElementById('bottom-nav')
-const bgImage = document.querySelector('#background-image')
+const navTop = document.getElementById('top-nav');
+const navBottom = document.getElementById('bottom-nav');
+const bgImage = document.querySelector('#background-image');
 const images = [...document.querySelectorAll(".img")];
-const hoverImages = document.getElementsByClassName('hover-reveal-img')
-const hoverReveal = document.getElementById('hover-reveal')
+const hoverImages = document.getElementsByClassName('hover-reveal-img');
+const hoverReveal = document.getElementById('hover-reveal');
+const info = document.getElementsByClassName('info')
+const trailerInfo = document.querySelector(`#trailerInfo`);
 const articleImage = document.querySelector('.article-image');
-const blank = document.getElementById('blank')
 const overlay = document.getElementById('content-overlay')
 const bands = [...document.querySelectorAll('.band')];
-const trackOne = document.querySelector('#trackone')
-const tracks = [...document.querySelectorAll('article')]
-const fixedContent = document.querySelector('.fixed-container-content')
+const trackOne = document.querySelector('#trackone');
+const tracks = [...document.querySelectorAll('article')];
+const fixedContent = document.querySelector('.fixed-container-content');
 const backButton = document.querySelector('.back');
 const middle = {
     x: innerWidth / 2,
@@ -41,20 +42,30 @@ const animateTrailer = (e, interacting) => {
     const x = e.clientX - trailer.offsetWidth / 2;
     const y = e.clientY - trailer.offsetHeight / 2;
 
-    const keyframes = {
+
+    const trailerFrames = {
         transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`,
     }
 
-    const otherframes = {
+    const infoFrames = {
+        transform: `translate(${x}px, ${y}px) scale(${5, 1})`,
+    }
+
+    const imageFrames = {
         transform: `translate(${x - 160}px, ${y - 160}px)`,
     }
+
+    trailerInfo.animate(infoFrames, {
+        duration: 800,
+        fill: 'forwards'
+    })
     
-    trailer.animate(keyframes, {
+    trailer.animate(trailerFrames, {
         duration: 800,
         fill: 'forwards'
     })
 
-    hoverReveal.animate(otherframes, {
+    hoverReveal.animate(imageFrames, {
         duration: 800,
         fill: 'forwards'
     })
@@ -73,21 +84,19 @@ window.onmousemove = e => {
     animateTrailer(e, interacting)
 }
 
-track.addEventListener("mouseover", function() {
-    images.forEach((img, i) => {
-        if (img.matches(':hover')) {
-            index = (i+1);
-            changeStyles();
-        }
-        else if (blank.matches(':hover')) {
-            index = 0;
-            changeStyles();
-        }
-        else {
-            removeStyles();  
-        }     
+for (let i = 0; i < images.length; i++) {
+    images[i].addEventListener('mouseover', () => {
+        info[i].style.transform = `scale(1, 1)`    
+        index = (i+1);
+        changeStyles();
     })
-});
+
+    images[i].addEventListener('mouseout', () => {
+        info[i].style.transform = `scale(0, 0)`
+        trailer.style.opacity = `0.7`   
+        removeStyles(); 
+    })
+}
 
 track.addEventListener('mouseleave', function() {
     index = 0;
@@ -323,51 +332,50 @@ window.onscroll = (e) => {
 }
 
 // melodrama click  ---------------------------------------------------------------------------------------------
-
 track.addEventListener('click', () => {
-    let currIndex = index - 1;
-    const credits = [...document.querySelectorAll('.credits')];
-    const titles = [...document.querySelectorAll('.title')];
-    const article = document.querySelector('.section');
+    if (index == 4) {
+        let currIndex = index - 1;
+        const credits = [...document.querySelectorAll('.credits')];
+        const titles = [...document.querySelectorAll('.title')];
+        const article = document.querySelector('.section');
 
-    lenis.destroy()
-    bands[1].classList.add('inview1');
-    bands[2].classList.add('inview2');
-    bands[3].classList.add('inview3');
-    bands[0].classList.add('is-sticky');
-    bands[bands.length - 1].classList.add('inview4');
-    
+        lenis.destroy()
+        bands[1].classList.add('inview1');
+        bands[2].classList.add('inview2');
+        bands[3].classList.add('inview3');
+        bands[0].classList.add('is-sticky');
+        bands[bands.length - 1].classList.add('inview4');
+        
 
-    for(let i = 0; i < images.length; i++) {
-        if (i !== (currIndex)) {
+        for(let i = 0; i < images.length; i++) {
             images[i].classList.add('out');
             navBottom.style.width = '0%'
             navTop.style.width = '0%'
             albumNames[i].style.transform = `translate(0, 0)`
             artistNames[i].style.transform = `translate(0, 0)`
-        } 
+        }
+
+        for (let i = 0; i < credits.length; i++) {
+            credits[i] = credits[i].classList.add('active')
+            titles[i] = titles[i].classList.add('active');
+        }
+
+        backButton.classList.add('active');
+        articleImage.classList.add('active');
+        images[currIndex].classList.add('active');
+        overlay.classList.add('active');
+        track.classList.add('out');
+        article.classList.add('active');
+        trackOne.classList.add('active');
+        fixedContent.scrollTo(0, 0);
+
+        lenis = new Lenis({
+            content: fixedContent,
+            lerp: 0.1,
+            smooth: true,
+            orientation: 'horizontal'
+        })
     }
-
-    for (let i = 0; i < credits.length; i++) {
-        credits[i] = credits[i].classList.add('active')
-        titles[i] = titles[i].classList.add('active');
-    }
-
-    backButton.classList.add('active');
-    articleImage.classList.add('active');
-    images[currIndex].classList.add('active');
-    overlay.classList.add('active');
-    track.classList.add('out');
-    article.classList.add('active');
-    trackOne.classList.add('active');
-    fixedContent.scrollTo(0, 0);
-
-    lenis = new Lenis({
-        content: fixedContent,
-        lerp: 0.1,
-        smooth: true,
-        orientation: 'horizontal'
-    })
 })
 
 function translateBand() {
@@ -377,19 +385,40 @@ function translateBand() {
         tracksArrayLeftDist[i] = mapRange(tracksArray[i].left, 0, innerWidth, 100, 0);
     }
 
-    for (let i = 1; i < bands.length - 1; i++) {
+    for (let i = 1; i < bands.length; i++) {
         let isStickyLeft = [...document.querySelectorAll('.is-sticky-left')];
         if (lenis.direction == 1) {
-            if ((tracksArray[i].left > 80 * (isStickyLeft.length + 1)) && (tracksArray[i].left < (innerWidth - 240))) {
-                bands[i].classList.add('animating');
+            if (i == 11) {
+                if ((tracksArray[i].left > 80 * (isStickyLeft.length + 1)) && (tracksArray[i].left < (innerWidth - 150))) {
+                    bands[i].classList.add('animating');
+                    bands[i].classList.remove('out-right');
+                }
+                else {
+                    bands[i].classList.remove('animating');
+                }
+            }
+            else if (i == 12) {
+                if ((tracksArray[i].left > 80 * (isStickyLeft.length + 1)) && (tracksArray[i].left < (innerWidth - 70))) {
+                    bands[i].classList.add('animating');
+                    bands[i].classList.remove('out-right');
+                }
+                else {
+                    bands[i].classList.remove('animating');
+                }
             }
             else {
-                bands[i].classList.remove('animating');
+                if ((tracksArray[i].left > 80 * (isStickyLeft.length + 1)) && (tracksArray[i].left < (innerWidth - 230))) {
+                    bands[i].classList.add('animating');
+                    bands[i].classList.remove('out-right');
+                }
+                else {
+                    bands[i].classList.remove('animating');
+                }
             }
         } 
             
         else if (lenis.direction == -1) {
-            if (i > 10) {
+            if (i == 11) {
                 if ((tracksArray[i].left > 80 * (isStickyLeft.length)) && (tracksArray[i].left < (innerWidth - 150))) {
                     bands[i].classList.add('animating');
                 }
@@ -397,9 +426,18 @@ function translateBand() {
                     bands[i].classList.remove('animating');
                 }
             }
-            else if (i > 9) {
+            else if (i == 10) {
                 if ((tracksArray[i].left > 80 * (isStickyLeft.length)) && (tracksArray[i].left < (innerWidth - 230))) {
                     bands[i].classList.add('animating');
+                }
+                else {
+                    bands[i].classList.remove('animating');
+                }
+            }
+            else if (i == 12) {
+                if ((tracksArray[i].left > 80 * (isStickyLeft.length)) && (tracksArray[i].left < (innerWidth - 70))) {
+                    bands[i].classList.add('animating');
+                    bands[i].classList.remove('out-right');
                 }
                 else {
                     bands[i].classList.remove('animating');
@@ -420,7 +458,7 @@ function translateBand() {
         }
     }
 
-    for (let i = 1; i < bands.length - 1; i++) {
+    for (let i = 1; i < bands.length; i++) {
         if (bands[i].classList.contains('animating')) {
             bands[i].style.transition = 'transform 0ms'
             bands[i].style.transform = `translate(${(-tracksArrayLeftDist[i])}vw, 0)`
@@ -428,25 +466,37 @@ function translateBand() {
             bands[i].classList.remove('is-sticky-left');
             if (i < 11) {
                 bands[i + 1].classList.add('is-sticky-right');
+                bands[i + 1].classList.remove('out-right');
                 bands[i + 2].classList.add('is-sticky-right');
+                bands[i + 2].classList.remove('out-right');
             }
             else if (i == 11) {
                 bands[i + 1].classList.add('is-sticky-right');
+                bands[i + 1].classList.remove('out-right');
+            }
+            if (bands[i].classList.contains('inview4')) {
+                bands[i].classList.remove('is-sticky-right');
             }
         }
         else if (bands[i].classList.contains('is-sticky-right')) {
             let isStickyRight = [...document.querySelectorAll('.is-sticky-right')]
-            if (!isStickyRight[1].classList.contains('inview4')) {
+            if (isStickyRight.length == 1) {
                 isStickyRight[0].style.transition = `transform 700ms ease`
-                isStickyRight[0].style.transform = `translate(-240px, 0)`
-                isStickyRight[1].style.transition = `transform 700ms ease`
-                isStickyRight[1].style.transform = `translate(-160px, 0)`
-            } 
-            else {
-                isStickyRight[0].style.transition = `transform 700ms ease`
-                isStickyRight[0].style.transform = `translate(-160px, 0)`
-                isStickyRight[1].style.transition = `transform 700ms ease`
-                isStickyRight[1].style.transform = `translate(-80px, 0)`
+                isStickyRight[0].style.transform = `translate(-80px, 0)`
+            }
+            if (isStickyRight.length > 1) {
+                if (!isStickyRight[1].classList.contains('inview4')) {
+                    isStickyRight[0].style.transition = `transform 700ms ease`
+                    isStickyRight[0].style.transform = `translate(-240px, 0)`
+                    isStickyRight[1].style.transition = `transform 700ms ease`
+                    isStickyRight[1].style.transform = `translate(-160px, 0)`
+                } 
+                else {
+                    isStickyRight[0].style.transition = `transform 700ms ease`
+                    isStickyRight[0].style.transform = `translate(-160px, 0)`
+                    isStickyRight[1].style.transition = `transform 700ms ease`
+                    isStickyRight[1].style.transform = `translate(-80px, 0)`
+                }
             }
            
             if (isStickyRight.length >= 3) {
@@ -479,7 +529,7 @@ function translateBand() {
                 isStickyLeft.shift();
             }
         }
-        else if (!bands[i].classList.contains('animating') && bands[i+1].classList.contains('is-sticky-right') && i > 1) {
+        else if (!bands[i].classList.contains('animating') && i > 1) {
             let outLeft = [...document.querySelectorAll('.out-left')];
             let isStickyLeft = [...document.querySelectorAll('.is-sticky-left')]
             if (outLeft.length > 0 && isStickyLeft.length < 2) {
@@ -493,7 +543,7 @@ function translateBand() {
 
 for (let i = 0; i < bands.length; i++) {
     bands[i].addEventListener('click', () => {
-        lenis.scrollTo(tracks[i]);
+        lenis.scrollTo(tracks[i], {offset: -161});
     })
     
     bands[i].addEventListener('mouseover', () => {
