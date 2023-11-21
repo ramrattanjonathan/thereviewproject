@@ -541,9 +541,14 @@ function translateBand() {
     }
 }
 
+function easeInOutQuart() {
+    let x = 0;
+    return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+    }
+
 for (let i = 0; i < bands.length; i++) {
     bands[i].addEventListener('click', () => {
-        lenis.scrollTo(tracks[i], {offset: -161});
+        lenis.scrollTo(tracks[i], {offset: -162, easing: easeInOutQuart()});
     })
     
     bands[i].addEventListener('mouseover', () => {
