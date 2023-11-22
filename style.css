@@ -1815,6 +1815,13 @@ body:hover > #trailer {
   transform: scaleX(1);
 }
 
+.back.end {
+  font-size: 40px;
+  top: 40%;
+  left: 45%;
+  transform: translate(0, 0);
+}
+
 #hover-reveal {
   position: fixed;
   width: 320px;

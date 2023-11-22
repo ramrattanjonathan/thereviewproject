@@ -7,6 +7,7 @@ let trackIndex = 0;
 let distances = [];
 let tracksArray = [];
 let tracksArrayLeftDist = [];
+let flag = false;
 const trailer = document.getElementById('trailer');
 const track = document.getElementById("image-track");
 const navTop = document.getElementById('top-nav');
@@ -23,7 +24,7 @@ const bands = [...document.querySelectorAll('.band')];
 const trackOne = document.querySelector('#trackone');
 const tracks = [...document.querySelectorAll('article')];
 const fixedContent = document.querySelector('.fixed-container-content');
-const backButton = document.querySelector('.back');
+const backButton = document.querySelectorAll('.back');
 const middle = {
     x: innerWidth / 2,
     y: innerHeight / 2
@@ -360,7 +361,7 @@ track.addEventListener('click', () => {
             titles[i] = titles[i].classList.add('active');
         }
 
-        backButton.classList.add('active');
+        backButton[0].classList.add('active');
         articleImage.classList.add('active');
         images[currIndex].classList.add('active');
         overlay.classList.add('active');
@@ -532,7 +533,7 @@ function translateBand() {
         else if (!bands[i].classList.contains('animating') && i > 1) {
             let outLeft = [...document.querySelectorAll('.out-left')];
             let isStickyLeft = [...document.querySelectorAll('.is-sticky-left')]
-            if (outLeft.length > 0 && isStickyLeft.length < 2) {
+            if (outLeft.length > 0 && isStickyLeft.length < 2 ) {
                 outLeft[outLeft.length - 1].classList.add('is-sticky-left');
                 outLeft[outLeft.length - 1].classList.remove('out-left');
                 outLeft.pop();
@@ -563,11 +564,19 @@ for (let i = 0; i < bands.length; i++) {
     })
 }
 
-backButton.addEventListener('mouseover', () => {
+backButton[0].addEventListener('mouseover', () => {
     trackIndex = 1;
 })
 
-backButton.addEventListener('mouseleave', () => {
+backButton[0].addEventListener('mouseleave', () => {
+    trackIndex = 0;
+})
+
+backButton[1].addEventListener('mouseover', () => {
+    trackIndex = 1;
+})
+
+backButton[1].addEventListener('mouseleave', () => {
     trackIndex = 0;
 })
 
@@ -578,7 +587,17 @@ function removeImagesOut() {
     }
 }
 
-backButton.addEventListener('click', () => {
+backButton[0].addEventListener('click', () => {
+    backToHome();
+})
+
+backButton[1].addEventListener('click', () => {
+    lenis.scrollTo(0, {offset: -162, easing: easeInOutQuart()});
+    setTimeout(backToHome, 1600);
+    
+})
+
+function backToHome() {
     const credits = [...document.querySelectorAll('.credits')];
     const titles = [...document.querySelectorAll('.title')];
     const article = document.querySelector('.section');
@@ -594,6 +613,7 @@ backButton.addEventListener('click', () => {
         bands[i].classList.remove('is-sticky-left');
         bands[i].classList.remove('is-sticky-right');
         bands[i].classList.remove('animating');
+        bands[i].classList.remove('out-left');
         bands[i].removeAttribute('style')
     }
 
@@ -603,7 +623,7 @@ backButton.addEventListener('click', () => {
     }
 
     overlay.classList.remove('active');
-    backButton.classList.remove('active');
+    backButton[0].classList.remove('active');
     articleImage.classList.remove('active')
     article.classList.remove('active');
     trackOne.classList.remove('active');
@@ -617,7 +637,9 @@ backButton.addEventListener('click', () => {
         smooth: true,
         orientation: 'horizontal'
     })
-})
+
+    flag = false;
+}
 
     
 
