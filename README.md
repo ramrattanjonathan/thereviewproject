@@ -25,7 +25,7 @@ Create the build:
 
 ## Demo
 
-Website on a 1920x1080 display in Google Chrome (more on the lack of optimization below)
+This demo is running on a 1920x1080 display in Google Chrome (more on the lack of optimization below)
 
 ### Homepage to Article
 
