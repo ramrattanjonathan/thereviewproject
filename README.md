@@ -2,7 +2,7 @@
 
 My first ever website, created using HTML, CSS, JavaScript (notes and details at the bottom).
 
-The website features album reviews but in a much more appealing and immersive layout. It is very unpractical but creating it helped me learn the basics of HTML, CSS, and JavaScript. 
+The website features album reviews but in a much more appealing and immersive layout. It is very unpractical but creating it helped me learn the basics of HTML, CSS, and JavaScript.
 
 https://jonathanramrattan.netlify.app/ 
 
@@ -45,6 +45,8 @@ https://github.com/ramrattanjonathan/thereviewproject/assets/150748418/64157391-
 ### Inspirations and Design Choices
 
 I wanted to create this website without using libraries as I felt the use of libraries would make this project way too easy and would limit my understanding of the languages I set out to learn. Despite this, I caved in on using Lenis for smooth scrolling as I could not figure out how to recreate that effect myself (maybe in the future), but no others (GSAP is installed but never used).
+
+I created this website to get insight on how awwwards websites are created as I was very intrigued by their designs and wanted to find out how difficult they really were to make.
 
 The homepage slider is inspired by Aristide Benoist's portfolio here: https://aristidebenoist.com/ and Camille Mormal: https://camillemormal.com/
 
