@@ -29,7 +29,7 @@ This demo is running on a 1920x1080 display in Google Chrome (more on the lack o
 
 ### Homepage to Article
 
-Homepage featuring multiple albums (only one of which is complete)
+Homepage featuring multiple albums (only one of which is complete) to article transition
 
 https://github.com/ramrattanjonathan/thereviewproject/assets/150748418/9047dd28-5f10-4318-8877-70ab5ef3f655
 
@@ -56,6 +56,7 @@ The design of the review itself is inspired by Root-Food: https://root-food.com/
 This website is not optimized for any display other than mine (1920x1080) and doesn't run very well (The chapters bug out on other devices). This is the first website I have ever created and I will use that as an excuse for now. However, I've created a list of problems/solutions that could make this run better AND scale on other displays, which I will try to incorporate in future projects:
 
 - Creating less HTML elements (used a lot to repeat typography for style but another approach could definitely be used). (HTML)
+- Creating references (href) to each article so that the browsers back button could be used for navigation. (HTML)
 - Utilizing a larger variety of units (px, vw, vh, %, rem, etc) in CSS to help scale the article better on different displays. (CSS)
 - Incorporating margins and padding to ensure articles scale better on different displays. (CSS)
 - Using the @media property and creating a new layout for smaller screens. (CSS)
