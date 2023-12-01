@@ -2,7 +2,7 @@
 
 My first ever website, created using HTML, CSS, JavaScript (notes and details at the bottom).
 
-The website features album reviews but in a much more appealing and immersive layout. It is very unpractical but creating it helped me learn the basics of HTML, CSS, and JavaScript.
+The website features album reviews but in a much more appealing and immersive layout. It is very unpractical but creating it helped me learn the basics of HTML, CSS, and JavaScript (and it was fun).
 
 https://jonathanramrattan.netlify.app/ 
 
